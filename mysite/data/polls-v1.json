@@ -1,0 +1,81 @@
+[
+{
+  "model": "polls.question",
+  "pk": 6,
+  "fields": {
+    "question_text": "Which canteen in KU have the best food?",
+    "pub_date": "2024-08-25T10:13:11Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 7,
+  "fields": {
+    "question_text": "Which transportation method do you prefer in KU?",
+    "pub_date": "2024-08-25T10:13:15Z"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 6,
+    "choice_text": "KU cafeteria 1",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 6,
+    "choice_text": "KU cafeteria 2",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 6,
+    "choice_text": "Bar vidva",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 7,
+    "choice_text": "Mtorcycle",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 7,
+    "choice_text": "KU Talai",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 7,
+    "choice_text": "Walk",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 32,
+  "fields": {
+    "question": 7,
+    "choice_text": "Tuk Tuk",
+    "votes": 0
+  }
+}
+]
