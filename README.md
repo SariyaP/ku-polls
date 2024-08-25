@@ -15,13 +15,13 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 ## Running the Application
 
 1. Clone the project
-   git clone https://github.com/SariyaP/ku-polls
+   >git clone https://github.com/SariyaP/ku-polls
 2. Change to project directory
-   cd ku-polls
+   >cd ku-polls
 3. Install the requirements.txt
-   pip install -r requirements.txt
+   >pip install -r requirements.txt
 4. open the server
-   python manage.py runserver
+   >python manage.py runserver
    
 
 ## Project Documents
