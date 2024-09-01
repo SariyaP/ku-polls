@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 
 from .models import Choice, Question
 class IndexView(generic.ListView):
@@ -27,6 +28,16 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
+    def get(self, request, *args, **kwargs):
+        """
+        If there is no question that can be voted, redirect to index page
+        """
+        question = self.get_object()
+        if not question.can_vote():
+            messages.error(request, "You can not vote on this question")
+            return redirect('polls:index')
+        return super().get(request, *args, **kwargs)
+
 
 class ResultsView(generic.DetailView):
     model = Question
@@ -41,6 +52,7 @@ def index(request):
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question})
+
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})

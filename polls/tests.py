@@ -122,3 +122,44 @@ class QuestionDetailViewTests(TestCase):
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+class TestIsPublished(TestCase):
+    def test_is_published_past_pub_date(self):
+        """Question with past pub_date can be seen"""
+        time = timezone.now() + datetime.timedelta(days=-10)
+        question = Question(question_text="01", pub_date=time)
+        self.assertTrue(question.is_published())
+
+    def test_is_published_current_pub_date(self):
+        """Question with current pub_date can be seen"""
+        time = timezone.now()
+        question = Question(question_text="02", pub_date=time)
+        self.assertTrue(question.is_published())
+
+    def test_is_not_published_future_pub_date(self):
+        """Question with future pub_date can not be seen"""
+        time = timezone.now() + datetime.timedelta(days=10)
+        question = Question(question_text="03", pub_date=time)
+        self.assertFalse(question.is_published())
+
+class TestCanVote(TestCase):
+    def test_can_vote_when_published(self):
+        """Can vote after published and not ended"""
+        pub_time = timezone.now() + datetime.timedelta(days=-10)
+        end_time = timezone.now() + datetime.timedelta(days=10)
+        question = Question(question_text="01", pub_date=pub_time, end_date=end_time)
+        self.assertTrue(question.can_vote())
+
+    def test_cannot_vote_when_ended(self):
+        """Cannot vote after ended"""
+        pub_time = timezone.now() + datetime.timedelta(days=-10)
+        end_time = timezone.now() + datetime.timedelta(days=-5)
+        question = Question(question_text="02", pub_date=pub_time, end_date=end_time)
+        self.assertFalse(question.can_vote())
+
+    def test_can_vote_when_end_date_is_null(self):
+        """Can vote when end date is null"""
+        pub_time = timezone.now() + datetime.timedelta(days=-10)
+        end_time = None
+        question = Question(question_text="03", pub_date=pub_time, end_date=end_time)
+        self.assertTrue(question.can_vote())
