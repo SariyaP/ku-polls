@@ -29,6 +29,9 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, *args, **kwargs):
+        """
+        If there is no question that can be voted, redirect to index page
+        """
         question = self.get_object()
         if not question.can_vote():
             messages.error(request, "You can not vote on this question")
