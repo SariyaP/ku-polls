@@ -4,8 +4,9 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-
-from .models import Choice, Question
+from django.contrib.auth.decorators import login_required
+from django.db.models import F
+from .models import Choice, Question,Vote
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -57,7 +58,7 @@ def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
 
-
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -67,7 +68,21 @@ def vote(request, question_id):
             'question': question,
             'error_message': "You didn't select a choice.",
         })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+    #Reference to the current user
+    this_user = request.user
+
+    #get the user's vote'
+    try:
+        # vote = user.votee_set.get(choice.question=question)
+        vote = Vote.objects.get(user=this_user, choice__question=question )
+        # User has a vote for this question! Update his choice.
+        vote.choice = selected_choice
+        vote.save()
+        messages.success(request,f"Your vote was change to '{selected_choice.choice_text}'")
+    except Vote.DoesNotExist:
+        vote = Vote.objects.create(user=this_user, choice=selected_choice)
+        # Does not have to vote yet
+        # Auto save
+        messages.success(request, f"Your vote was change to '{selected_choice.choice_text}'")
+    return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
