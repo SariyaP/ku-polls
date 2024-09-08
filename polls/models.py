@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField(timezone.now())
+    pub_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField('date end', null=True, blank=True)
 
     def __str__(self):

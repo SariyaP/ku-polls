@@ -4,9 +4,16 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
+from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from .models import Choice, Question,Vote
+from django.dispatch import receiver
+import logging
+# Get a logger for this module.
+logger = logging.getLogger("polls")
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -86,3 +93,48 @@ def vote(request, question_id):
         # Auto save
         messages.success(request, f"Your vote was change to '{selected_choice.choice_text}'")
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+def signup(request):
+    """Register a new user."""
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # get named fields from the form data
+            username = form.cleaned_data.get('username')
+            # password input field is named 'password1'
+            raw_passwd = form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=raw_passwd)
+            login(request, user)
+            return redirect('polls:index')
+        # what if form is not valid?
+        # we should display a message in signup.html
+    else:
+        # create a user form and display it the signup page
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+def get_client_ip(request):
+    """Get the visitor’s IP address using request headers."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+@receiver(user_logged_in)
+def user_login(sender, request, user, **kwargs):
+    ip = get_client_ip(request)
+    logger.info("You can now vote!", {user.username, ip})
+
+@receiver(user_logged_out)
+def user_logout(sender, request, user, **kwargs):
+    ip = get_client_ip(request)
+    logger.info("Logout successfully", {user.username, ip})
+
+@receiver(user_login_failed)
+def user_login(sender, request, user, **kwargs):
+    ip = get_client_ip(request)
+    logger.warning("Wrong username or password", { ip})
+
