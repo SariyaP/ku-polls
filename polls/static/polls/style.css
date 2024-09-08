@@ -1,7 +1,57 @@
-li a {
-    color: blue;
-    
+body{
+    background-image: linear-gradient(#648eda, e2a8f3)
 }
-body {
-    background:white
-    url("image/background.png") no-repeat;}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+li{
+list-style-type: none;}
+li a {
+    list-style-type: none;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  list-style-type: none;
+}
+h1{
+color:white}
+
+.navigate{
+margin: auto;
+background-color: #648eda;
+}
+.navigate ul {
+  display: flex; /* Arrange list items horizontally */
+  justify-content: space-between; /* Space items evenly */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigate li {
+  margin: 0;
+  padding: 0;
+}
+
+.navigate a {
+  padding: 10px 20px;
+}
+.poll-item {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: blue;
+  width: 300px;
+}
+.poll-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+}

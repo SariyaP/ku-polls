@@ -1,12 +1,12 @@
 import datetime
 
-from django.test import TestCase
+import django.test
 from django.utils import timezone
 from django.urls import reverse
-from .models import Question
+from polls.models import Question
 
 
-class QuestionModelTests(TestCase):
+class QuestionModelTests(django.test.TestCase):
 
     def test_was_published_recently_with_future_question(self):
         """
@@ -44,7 +44,7 @@ def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
-class QuestionIndexViewTests(TestCase):
+class QuestionIndexViewTests(django.test.TestCase):
 
     def test_no_questions(self):
         """
@@ -102,7 +102,7 @@ class QuestionIndexViewTests(TestCase):
             [question2, question1],
         )
 
-class QuestionDetailViewTests(TestCase):
+class QuestionDetailViewTests(django.test.TestCase):
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
@@ -123,7 +123,7 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-class TestIsPublished(TestCase):
+class TestIsPublished(django.test.TestCase):
     def test_is_published_past_pub_date(self):
         """Question with past pub_date can be seen"""
         time = timezone.now() + datetime.timedelta(days=-10)
@@ -142,7 +142,7 @@ class TestIsPublished(TestCase):
         question = Question(question_text="03", pub_date=time)
         self.assertFalse(question.is_published())
 
-class TestCanVote(TestCase):
+class TestCanVote(django.test.TestCase):
     def test_can_vote_when_published(self):
         """Can vote after published and not ended"""
         pub_time = timezone.now() + datetime.timedelta(days=-10)
@@ -163,3 +163,4 @@ class TestCanVote(TestCase):
         end_time = None
         question = Question(question_text="03", pub_date=pub_time, end_date=end_time)
         self.assertTrue(question.can_vote())
+

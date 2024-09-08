@@ -2,8 +2,10 @@
 
 <ul>
 {% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }}</li>
+    <li>{{ choice.choice_text }} {{ choice.votes }}</li>
 {% endfor %}
 </ul>
 
-<p><a href="{% url 'polls:index' %}">Back to poll</a></p>
+<a href="{% url 'polls:index' %}"><button>Back to poll</button></a>
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
