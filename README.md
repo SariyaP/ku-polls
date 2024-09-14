@@ -9,8 +9,8 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 ## Installation
 
-- Python version >= 3.9
-- Django
+Django >= 5.1
+python-decouple >= 3.8
 
 ## Running the Application
 
@@ -20,7 +20,13 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
    >cd ku-polls
 3. Install the requirements.txt
    >pip install -r requirements.txt
-4. open the server
+4. Migrate
+   >python manage.py migrate
+5. Load data
+   >python manage.py loaddata data/users.json
+6. Generate your secret key
+   >python manage.py loaddata data/polls-v3.json
+7. Run the server
    >python manage.py runserver
    
 

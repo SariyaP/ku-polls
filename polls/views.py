@@ -17,6 +17,7 @@ logger = logging.getLogger("polls")
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    sort = Question.objects.order_by('-pub_date')
 
     def get_queryset(self):
         """Return the last five published questions."""
@@ -46,6 +47,19 @@ class DetailView(generic.DetailView):
             return redirect('polls:index')
         return super().get(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        """
+        Keep the vote if user already voted
+        """
+        context = super().get_context_data(**kwargs)
+        question = self.get_object()
+        if self.request.user.is_authenticated:
+            try:
+                vote = Vote.objects.get(user=self.request.user, choice__question=question)
+                context['user_vote']=vote.choice.id
+            except Vote.DoesNotExist:
+                context['user_vote']=None
+        return context
 
 class ResultsView(generic.DetailView):
     model = Question
