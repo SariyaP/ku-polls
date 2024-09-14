@@ -10,6 +10,7 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 ## Installation
 
 Django >= 5.1
+
 python-decouple >= 3.8
 
 ## Running the Application
@@ -38,3 +39,5 @@ All project documents are in the [Project Wiki](https://github.com/SariyaP/ku-po
 - [Project Plan](../../wiki/Project-Plan)
   - [Iteration 1](../../wiki/Iteration-1-Plan)
   - [Iteration 2](../../wiki/Iteration-2-Plan)
+  - [Iteration 3](../../wiki/Iteration-3-Plan)
+  - [Iteration 3](../../wiki/Iteration-4-Plan)
