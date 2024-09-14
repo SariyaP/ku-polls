@@ -1,5 +1,7 @@
 <html>
+<link rel="stylesheet" href="./style.css">
 <body>
+<div>
 <h2>Login</h2>
 <form method="post">
   {% csrf_token %}
@@ -10,5 +12,6 @@
   <input type="hidden" name="next" value="{{next}}"/>
  </form>
  <p><a href="{% url 'signup' %}"> <button type="submit">Sign up</button></a></p>
+</div>
 </body>
 </html>
