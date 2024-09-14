@@ -1,4 +1,6 @@
 # KU Polls: Online Survey Questions 
+[![Django CI](https://github.com/SariyaP/ku-polls/actions/workflows/django.yml/badge.svg)](https://github.com/SariyaP/ku-polls/actions/workflows/django.yml)
+[![Flake8](https://github.com/SariyaP/ku-polls/actions/workflows/flake8.yml/badge.svg)](https://github.com/SariyaP/ku-polls/actions/workflows/flake8.yml)
 
 An application to conduct online polls and surveys based
 on the [Django Tutorial project](https://docs.djangoproject.com/en/4.1/intro/tutorial02/), with
@@ -40,4 +42,4 @@ All project documents are in the [Project Wiki](https://github.com/SariyaP/ku-po
   - [Iteration 1](../../wiki/Iteration-1-Plan)
   - [Iteration 2](../../wiki/Iteration-2-Plan)
   - [Iteration 3](../../wiki/Iteration-3-Plan)
-  - [Iteration 3](../../wiki/Iteration-4-Plan)
+  - [Iteration 4](../../wiki/Iteration-4-Plan)
