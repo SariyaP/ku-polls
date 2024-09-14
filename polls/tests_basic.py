@@ -1,12 +1,12 @@
 import datetime
 
-import django.test
+from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 from polls.models import Question
 
 
-class QuestionModelTests(django.test.TestCase):
+class QuestionModelTests(TestCase):
 
     def test_was_published_recently_with_future_question(self):
         """
@@ -44,8 +44,7 @@ def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
-class QuestionIndexViewTests(django.test.TestCase):
-
+class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
         """
         If no questions exist, an appropriate message is displayed.
@@ -53,7 +52,7 @@ class QuestionIndexViewTests(django.test.TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+        self.assertQuerySetEqual(response.context['latest_question_list'], [])
 
     def test_past_question(self):
         """
@@ -62,7 +61,7 @@ class QuestionIndexViewTests(django.test.TestCase):
         """
         question = create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question],
         )
@@ -75,7 +74,7 @@ class QuestionIndexViewTests(django.test.TestCase):
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
         self.assertContains(response, "No polls are available.")
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+        self.assertQuerySetEqual(response.context['latest_question_list'], [])
 
     def test_future_question_and_past_question(self):
         """
@@ -85,7 +84,7 @@ class QuestionIndexViewTests(django.test.TestCase):
         question = create_question(question_text="Past question.", days=-30)
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question],
         )
@@ -97,12 +96,12 @@ class QuestionIndexViewTests(django.test.TestCase):
         question1 = create_question(question_text="Past question 1.", days=-30)
         question2 = create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question2, question1],
         )
 
-class QuestionDetailViewTests(django.test.TestCase):
+class QuestionDetailViewTests(TestCase):
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
@@ -123,7 +122,7 @@ class QuestionDetailViewTests(django.test.TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-class TestIsPublished(django.test.TestCase):
+class TestIsPublished(TestCase):
     def test_is_published_past_pub_date(self):
         """Question with past pub_date can be seen"""
         time = timezone.now() + datetime.timedelta(days=-10)
@@ -142,7 +141,7 @@ class TestIsPublished(django.test.TestCase):
         question = Question(question_text="03", pub_date=time)
         self.assertFalse(question.is_published())
 
-class TestCanVote(django.test.TestCase):
+class TestCanVote(TestCase):
     def test_can_vote_when_published(self):
         """Can vote after published and not ended"""
         pub_time = timezone.now() + datetime.timedelta(days=-10)
