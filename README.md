@@ -8,6 +8,9 @@ additional features.
 
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
+## Application Screenshot
+![image](https://github.com/user-attachments/assets/fba17988-8cfc-4850-8891-336446948955)
+
 
 ## Installation
 
@@ -16,25 +19,18 @@ Django >= 5.1
 python-decouple >= 3.8
 
 ## Running the Application
+Please follows [installation.md](./installation.md) step by step.
 
-1. Clone the project
-   >git clone https://github.com/SariyaP/ku-polls
-2. Change to project directory
-   >cd ku-polls
-3. Install the requirements.txt
-   >pip install -r requirements.txt
-4. Migrate
-   >python manage.py migrate
-5. Load data
-   >python manage.py loaddata data/users.json
-6. Generate your secret key
-   >python manage.py loaddata data/polls-v3.json
-7. Run the server
-   >python manage.py runserver
-   
+
+## Demo Users
+| Username  | Password        |
+|-----------|-----------------|
+|   demo1   | hackme11 |
+|   demo2   | hackme22 |
+|   demo3   | hacnkme33 |
 
 ## Project Documents
-All project documents are in the [Project Wiki](https://github.com/SariyaP/ku-polls/wiki).
+All project documents are in the [Project Wiki](../../wiki).
 
 - [Vision Statement](../../wiki/Vision-and-Scope)
 - [Requirements](../../wiki/Requirements)
