@@ -9,7 +9,8 @@ additional features.
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 ## Application Screenshot
-![image](https://github.com/user-attachments/assets/fba17988-8cfc-4850-8891-336446948955)
+![img.png](img.png)
+
 
 
 ## Installation
@@ -20,7 +21,18 @@ python-decouple >= 3.8
 
 ## Running the Application
 Please follows [installation.md](./installation.md) step by step.
+## Set environment variables
+on Window
 
+```sh
+ python copy sample.env .env
+ ```
+
+on MacOS / Linux
+
+```sh
+ python cp sample.env .env 
+ ```
 
 ## Demo Users
 | Username  | Password        |
