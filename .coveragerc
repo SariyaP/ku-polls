@@ -1,0 +1,15 @@
+[run]
+branch = True
+omit =
+    /usr/*
+    ~/.local/*
+    env/*
+    */__init__.py
+    polls/manage.py
+    polls/migrations/*
+
+
+[report]
+exclude_lines =
+    def __str__(self):
+    def __repr__(self):
