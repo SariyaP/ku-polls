@@ -12,6 +12,7 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 ![img.png](img.png)
 
 
+
 ## Installation
 
 Django >= 5.1
