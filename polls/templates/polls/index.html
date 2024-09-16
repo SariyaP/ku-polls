@@ -25,7 +25,12 @@
 <div class="all-question">{% if latest_question_list %}
     {% for question in latest_question_list %}
     <div class="poll-container">
-          <h2 class="heading">{{ question.question_text }}</h2></li>
+          <h2 class="heading">{{ question.question_text }}
+        {% if question.can_vote %}
+            [Open]
+        {% else %}
+            [Closed]
+        {% endif %}</h2>
         <div class="poll-actions">
         {% if question.can_vote %}
               <a href="{% url 'polls:detail' question.id %}"><button>Vote</button></a>
